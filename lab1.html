@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    p {
+      background-color: rgb(228, 228, 28);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 50vh;
+      margin: ;
+    }
+
+    #number {
+      font-size: 50px;
+      color: blue;
+    }
+
+    button {
+
+      margin: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <p id="number">0</p>
+  <button id="start">시작</button>
+  <button id="stop">종료</button>
+
+  <script>
+    let count = 0;
+    let intervalId = null;
+
+    const newNum = document.getElementById("number");
+
+    const startBtn = document.getElementById("start");
+    const stopBtn = document.getElementById("stop");
+
+    startBtn.addEventListener("click", function () {
+      intervalId = setInterval(function () {
+        count++;
+        newNum.innerText = count;
+      }, 1000);
+    });
+
+    stopBtn.addEventListener("click", function () {
+      clearInterval(intervalId);
+      intervalId = null;
+    })
+  </script>
+</body>
+
+</html>
