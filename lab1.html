@@ -13,7 +13,10 @@
       justify-content: center;
       align-items: center;
       height: 50vh;
-      margin: ;
+    }
+
+    .btnAll {
+      text-align: center;
     }
 
     #number {
@@ -22,7 +25,7 @@
     }
 
     button {
-
+      padding: 15px;
       margin: 5px;
     }
   </style>
@@ -30,28 +33,40 @@
 
 <body>
   <p id="number">0</p>
-  <button id="start">시작</button>
-  <button id="stop">종료</button>
 
+  <div class="btnAll">
+    <button id="start">시작</button>
+    <button id="stop">종료</button>
+    <button id="clear">초기화</button>
+  </div>
   <script>
     let count = 0;
     let intervalId = null;
 
     const newNum = document.getElementById("number");
-
     const startBtn = document.getElementById("start");
     const stopBtn = document.getElementById("stop");
+    const clearNum = document.getElementById("clear");
 
     startBtn.addEventListener("click", function () {
-      intervalId = setInterval(function () {
-        count++;
-        newNum.innerText = count;
-      }, 1000);
+      if (intervalId == null) {
+        intervalId = setInterval(function () {
+          count++;
+          newNum.textContent = count;
+        }, 1000);
+      }
     });
 
     stopBtn.addEventListener("click", function () {
       clearInterval(intervalId);
       intervalId = null;
+    })
+
+    clearNum.addEventListener("click", function () {
+      clearInterval(intervalId);
+      intervalId = null;
+      count = 0;
+      newNum.textContent = count;
     })
   </script>
 </body>
