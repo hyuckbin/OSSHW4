@@ -1,33 +1,41 @@
 <!DOCTYPE html>
 <html>
-<body>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
 <style>
-	ul{
-    	background-color:rgb(244, 244, 116);
-        height:300px;
-    }
+  ul {
+    background-color: rgb(244, 244, 116);
+    height: 300px;
+  }
 </style>
+
+<body>
   <button id="btnList">Get data</button>
   <ul id="list"></ul>
 </body>
-</html> 
 
 <script>
-document.getElementById("btnList").addEventListener("click",getList);
+  document.getElementById("btnList").addEventListener("click", getList);
 
-function getList(){
-	fetch("https://jsonplaceholder.typicode.com/users")
-    .then(response => response.json())
-    .then(data=>{
-    const list = document.getElementById("list");
-    list.innerHTML = "" ; 
-    	data.forEach(user=>{
-    	const li = document.createElement("li");
-    	li.textContent = `${user.name} - ${user.email}` ;
-        list.appendChild(li);
-      });
-	})
-	.catch(error=> console.error("error 발생 : ",error));
-}
+  function getList() {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then(response => response.json())
+      .then(data => {
+        const list = document.getElementById("list");
+        list.innerHTML = "";
+        data.forEach(user => {
+          const li = document.createElement("li");
+          li.textContent = `${user.name} - ${user.email}`;
+          list.appendChild(li);
+        });
+      })
+      .catch(error => console.error("error 발생 : ", error));
+  }
 </script>
 
+</html>
