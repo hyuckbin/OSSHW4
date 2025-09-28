@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    ul {
+      background-color: rgb(244, 244, 116);
+      height: 300px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form-box">
+    <input type="number" id="userId" placeholder="ID">
+    <input type="text" id="name" placeholder="이름 입력">
+    <input type="text" id="email" placeholder="이메일 입력">
+  </div>
+  <br>
+  <button id="btnGet">데이터 조회</button>
+  <button id="btnAdd">데이터 추가</button>
+  <button id="btnPut">데이터 수정</button>
+  <button id="btnDel">데이터 삭제</button>
+  <ul id="list"></ul>
+
+  <script>
+    const API_URL = "http://localhost:3001/students";
+    const list = document.getElementById("list");
+
+    document.getElementById("btnGet").addEventListener("click", getList);
+    document.getElementById("btnAdd").addEventListener("click", addList);
+    document.getElementById("btnPut").addEventListener("click", putList);
+    document.getElementById("btnDel").addEventListener("click", delList);
+
+    function getFormData() {
+      const userId = document.getElementById("userId").value;
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      return { userId, name, email };
+    }
+
+    // 조회 (GET)
+    function getList() {
+      fetch(API_URL)
+        .then(res => res.json())
+        .then(data => {
+          list.innerHTML = "";
+          data.forEach(user => {
+            const li = document.createElement("li");
+            li.textContent = `${user.id} - ${user.name} - ${user.email}`;
+            list.appendChild(li);
+          });
+        })
+
+        .catch(error => alert(error));
+    }
+
+    // 추가 (POST)
+    function addList() {
+      const { userId, name, email } = getFormData();
+      if (!userId) return alert("추가할 ID를 입력하세요!");
+      fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id:userId, name, email })
+      })
+        .then(res => res.json())
+        .then(data => {
+          alert("추가 완료: " + data.name);
+        })
+        .catch(error => alert(error));
+    }
+
+    // 수정 (PUT)
+    function putList() {
+      const { userId, name, email } = getFormData();
+      if (!userId) return alert("수정할 ID를 입력하세요!");
+
+      fetch(`${API_URL}/${userId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: userId, name, email })
+      })
+        .then(res => res.json())
+        .then(data => {
+          alert("수정 완료: " + data.name);
+        })
+
+        .catch(error => alert(error));
+    }
+
+    // 삭제 (DELETE)
+    function delList() {
+      const { userId } = getFormData();
+      if (!userId) return alert("삭제할 ID를 입력하세요!");
+
+      fetch(`${API_URL}/${userId}`, { method: "DELETE" })
+        .then(() => {
+          alert(`삭제 완료: ID ${userId}`);
+        })
+
+        .catch(error => alert(error));
+    }
+  </script>
+</body>
+
+</html>
