@@ -1,0 +1,41 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "name": "Jerry",
+      "email": "apple.com"
+    },
+    {
+      "id": 2,
+      "name": "Tom",
+      "email": "google.com"
+    },
+    {
+      "id": "3",
+      "name": "Alice",
+      "email": "ap@nav.com"
+    },
+    {
+      "id": "4",
+      "name": "hb",
+      "email": "rpqwj@mawdb.com"
+    },
+    {
+      "id": "5",
+      "name": "wen",
+      "email": "wenjo2@mna-2.com"
+    }
+  ],
+  "courses": [
+    {
+      "id": 1,
+      "cname": "Open source studio",
+      "credit": 3
+    },
+    {
+      "id": 2,
+      "cname": "Programming studio",
+      "credit": 2
+    }
+  ]
+}
